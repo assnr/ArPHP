@@ -15,14 +15,23 @@ arphp开发了很多优秀项目稳定运行。那么如果你想告别复杂冗
 
 还是不容易的，喜欢？用过？了解过？麻烦各位看官赏脸star一下
 
+2017/08/30  arphp4.0.1
+加入控制器service ，命名空间 ，ason配置，目录灵活配置，支持php7，需要php5.3以上，ATML全新模板引擎，更优化的代码结构，
+WEB目录隔离，更加安全，全新的框架，文档制作中。。。
+
+注意：start方式        {folder}/ArPHP/init.php
+                     {folder}/web/index.php      <?php  include '../ArPHP/init.php';
+
+赶快更新吧，arphp官方群里附上最新demo
+ArPHP开源群 : 259956472    wwww.arphp.org(待更新...)
+
+git : https://github.com/assnr/ArPHP.git（最新版）
 
 2017/06/20 更新 3.0版本
 加入ATML模板引擎，
 加入WEB CLI模式
 
 不兼容arphp3之前的版本，PHP 版本需要5.3及以上
-
-文档制作中...
 
 ATML风格一缆
 
@@ -69,11 +78,7 @@ include 'arphp.php';
 更多使用帮助及例子请加官方qq群，
 
 
-官方支持
-git : https://github.com/assnr/ArPHP.git（最新版）
 
-ArPHP开源群 : 259956472
-官网：www.arphp.org
 
 
 基本使用：
@@ -96,152 +101,5 @@ index.php
 
 
 访问index.php即可件 hello ArPHP!
-
-
-常用用法(特别感谢JackLiu对以下常用操作使用的提供)
-
-        /*
-        // mysql 事物操作
-        try {
-            // 开启事物
-            arComp('db.mysql')->transBegin();
-
-            // 数据库业务逻辑代码。。。。。。。。
-
-            // 提交
-            arComp('db.mysql')->transCommit();
-        } catch (Exception $e) {
-            // 回滚
-            arComp('db.mysql')->transRollBack();
-        }
-        */
-        // 跳转到regAction
-        // $this->redirect(array('reg', array('a' => 1)), '跳转了', 4);
-
-        // 为 session 设置 变量值
-        // arComp('list.session')->set('name', 'value');
-
-        // 清空 session
-        // arComp('list.session')->flush();
-
-        // 为 session 获取 变量值
-        // arComp('list.session')->get('name');
-
-        // 输出显示模板 默认为index.php
-        // $this->display();
-
-        // 设置布局文件
-        // $this->setLayoutFile('a');
-
-        // 数据库表table查询一行
-        // $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('t1')->queryRow();
-
-        // 用模型实现查询（已定义T1Model）
-        // $sp = T1Model::model()->getDb()->where(array('id' => 1))->queryRow();
-
-        // 用模型实现查询（未定义T1Model）
-        // $sp = arModel::model('T1')->getDb()->where(array('id' => 1))->queryRow();
-
-        // 数据库查询所有
-        // $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('t1')->queryAll();
-        // 为 session 获取 变量值
-        // arComp('list.session')->get('name');
-
-        // 输出显示模板 默认为index.php
-        // $this->display();
-
-        // 设置布局文件
-        // $this->setLayoutFile('a');
-
-        // 数据库表table查询一行
-        // $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('t1')->queryRow();
-
-        // 用模型实现查询（已定义T1Model）
-        // $sp = T1Model::model()->getDb()->where(array('id' => 1))->queryRow();
-
-        // 用模型实现查询（未定义T1Model）
-        // $sp = arModel::model('T1')->getDb()->where(array('id' => 1))->queryRow();
-
-        // 数据库查询所有
-        // $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('t1')->queryAll();
-
-        // 数据库查询所有以指定键返回数据
-        // $sp = arComp('db.mysql')->select('')->where(array('name' => 'wyp'))->table('t1')->queryAll('id');
-
-        // 数据库查询所有以指定键返回原始数据
-        // $sp = arComp('db.mysql')->select('')->where(array('name' => 'wyp'))->table('t1')->queryColumn('id');
-
-        // 数据库更新数据
-        // $sp = arComp('db.mysql')->where(array('name' => 'wyp'))->table('t1')->update(array('column' => 'value'));
-
-        // 数据库插入数据
-        // $sp = arComp('db.mysql')->where(array('name' => 'wyp'))->table('t1')->insert(array('column' => 'value'));
-
-        // 测试HTTP请求参数
-        // $result = arRequest('');
-
-        // 网络调用main项目 IndexConterller apiAction
-        // $res = arComp('rpc.json')->callApi('/main/index/api');
-
-        // 加密字符串
-        // $result = arComp('hash.mcrypt')->encrypt('yunListMan');
-
-        // 解密字符串
-        // $dresult = arComp('hash.mcrypt')->decrypt($result);
-
-        // 远程POST数据到指定url
-        // $data = array(
-        //     'userName' => 'yctest',
-        //     'loginTel' => '12345678914',
-        //     'token' => '9sZwwC29j_i_aJ2ZGg0DxoPzWrgKBfgz_x_g6vqgfvXnrlRz_x_gg8g=',
-        // );
-
-        // 读取配置常量
-        // arCfg('CONFIG_KEY');
-
-        // arComp('rpc.source')->method = 'post';
-        // $result = arComp('rpc.source')->remoteCall('http://cs.test.cn/yu/reg', $data);
-
-        // 调用内部Service
-        // $result = arComp('rpc.service')->WsTest('tt', array('ssd', 3));
-
-        // 执行model方法
-        // MyModel::model()->yourFunction();
-
-        // 创建完整的URL
-        // echo arComp('url.route')->createUrl('', array('ni' => '33', 'p' => 4));
-
-
-
-
-    // 数据库表user查询一行
-        $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('user')->queryRow();
-
-    // 用模型实现查询（已定义UserModel）
-        $sp = UserModel::model()->getDb()->where(array('id' => 1))->queryRow();
-
-    // 用模型实现查询（未定义UserModel）
-        $sp = arModel::model('User')->getDb()->table('user')->where(array('id' => 1))->queryRow();
-
-    // 数据库查询所有
-        $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('user')->queryAll();
-
-    // 数据库表user查询一行
-        $sp = arComp('db.mysql')->select('id')->where(array('id' => 1))->table('user')->queryRow();
-
-    // 数据库查询所有以指定键返回数据
-        $sp = arComp('db.mysql')->select('')->where(array('name' => 'xxx'))->table('user')->queryAll('id');
-
-    // 数据库查询所有以指定键返回原始数据
-        $sp = arComp('db.mysql')->select('')->where(array('name' => 'xxx'))->table('user')->queryColumn('id');
-
-    // 数据库更新数据
-        $sp = arComp('db.mysql')->where(array('name' => 'wyp'))->table('user')->update(array('column' => 'value'));
-
-    // 数据库插入数据
-        $sp = arComp('db.mysql')->where(array('name' => 'wyp'))->table('user')->insert(array('column' => 'value'));
-
-    // 贪婪匹配 , 生成的链接保留之前请求的参数， 非常适合做多级栏目切换传参
-        arU('', array('greedyUrl' => true, 'aid' => 2));
 
 
