@@ -41,15 +41,24 @@ class Ar
     // autoload path
     static public $autoLoadPath;
 
+    static public function testgein() {
+        echo 'get in';
+
+    }
+
     /**
      * init application.
      *
      * @return mixed
      */
-    static public function init()
+    static public function init($loader)
     {
+        require dirname(dirname(__FILE__)) . '/constant.php';
+
         Ar::import(AR_CORE_PATH . 'alias.func.php');
+
         comp('url.skeleton')->parseGlobalAson();
+        $loader->add(AR_ORI_NAME, dirname(AR_ORI_PATH));
 
         if (AR_OUTER_START) :
             defined('AR_MAN_PATH') or define('AR_MAN_PATH', AR_ROOT_PATH . AR_MAN_NAME . DS);
@@ -495,7 +504,7 @@ class Ar
             $errMsg .= "<b style='color:red;'>ERROR</b> [$errno] $errstr<br />\n";
             $errMsg .= "  Fatal error on line $errline in file $errfile";
             $errMsg .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-            header("http/1.1 404 Not Found:" . $errMsg);
+            // header("http/1.1 404 Not Found:" . $errMsg);
             $serverError = true;
             break;
 

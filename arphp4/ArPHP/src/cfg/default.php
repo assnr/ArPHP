@@ -50,7 +50,7 @@ return array(
     'DEBUG_LOG' => false,
 
     // 默认的模板后缀
-    'TPL_SUFFIX' => 'php',
+    'TPL_SUFFIX' => 'html',
 
     // 路由规则
     'URL_ROUTE_RULES' => array(

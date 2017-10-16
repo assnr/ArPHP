@@ -63,11 +63,11 @@ class Skeleton extends \ar\comp\Component
             $this->basePath . 'lib/ext',
 
             $this->basePath . 'themes',
-            $this->basePath . 'themes/def',
-            $this->basePath . 'themes/def/main',
-            $this->basePath . 'themes/def/main/css',
-            $this->basePath . 'themes/def/main/js',
-            $this->basePath . 'themes/def/main/img',
+            $this->basePath . 'themes/main',
+            $this->basePath . 'themes/main/def',
+            $this->basePath . 'themes/main/def/css',
+            $this->basePath . 'themes/main/def/js',
+            $this->basePath . 'themes/main/def/img',
 
             $this->basePath . 'view',
             $this->basePath . 'view/main',
@@ -101,7 +101,7 @@ class Skeleton extends \ar\comp\Component
  * default Controller.
  *
  */
-namespace ctl\main;
+namespace ' . AR_ORI_NAME . '\ctl\main;
 use \ar\core\Controller as Controller;
 /**
  * Default Controller of webapp.
@@ -115,6 +115,8 @@ class Index extends Controller
      */
     public function index()
     {
+        // 调用本地服务组件
+        // $this->getTestService()->myTestFunc();
         $this->assign(["welcomeTitle" => "hello arphp"]);
         $this->display();
 
@@ -129,7 +131,7 @@ class Index extends Controller
  * test service.
  *
  */
-namespace ctl\main\service;
+namespace ' . AR_ORI_NAME . '\ctl\main\service;
 /**
  * Default Controller of webapp.
  */
@@ -146,7 +148,7 @@ class Test
 
 ',
 
-        $this->basePath . 'view/main/def/Index/index.php' => '<import from="/Layout/global" name="html5">
+        $this->basePath . 'view/main/def/Index/index.html' => '<import from="/Layout/global" name="html5">
     <extend name="title">
           {{welcomeTitle}},  this is html title
     </extend>
@@ -157,7 +159,7 @@ class Test
     </extend>
 </import>
 ',
-$this->basePath . 'view/main/def/Layout/global.php' => '<export name="html5">
+$this->basePath . 'view/main/def/Layout/global.html' => '<export name="html5">
 <html>
     <head>
         <title>
@@ -254,41 +256,27 @@ return array(
             $oriName = basename(dirname($_SERVER['SCRIPT_FILENAME']));
             $asonInitContent = '{
     "AR_DEBUG": true,
-
     "AR_AUTO_START_SESSION": true,
-
     "AR_AS_WEB": true,
-
     "AR_OUTER_START": false,
-
     "AR_AS_OUTER_FRAME": false,
-
     "AR_RUN_AS_SERVICE_HTTP": false,
-
     "AR_AS_CMD": false,
-
     "AR_AS_WEB_CLI": false,
-
     "AR_MAN_NAME": "Arman",
-
     "AR_PUBLIC_CONFIG_FILE": "",
-
     "AR_DEFAULT_APP_NAME": "main",
-
     "AR_DEFAULT_CONTROLLER": "Index",
-
     "AR_DEFAULT_ACTION": "index",
-
-    "AR_ORI_PATH": "%AR_ROOT_PATH%'. $oriName .'%DS%",
-
+    "AR_ORI_NAME": "' . $oriName . '",
+    "AR_ORI_PATH": "%AR_ROOT_PATH%%AR_ORI_NAME%%DS%",
     "AR_ASSETS_SERVER_PATH": "%AR_SERVER_PATH%assets/",
-
     "AR_DATA_PATH": "%AR_ROOT_PATH%data%DS%",
-
     "CONFIG": {
         "moduleLists": ["main"],
         "theme": "def",
-        "DEBUG_SHOW_TRACE": true
+        "DEBUG_SHOW_TRACE": true,
+        "TPL_SUFFIX": "html"
     }
 }
 ';
