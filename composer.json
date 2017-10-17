@@ -2,7 +2,7 @@
   "name": "arphp/arphp",
   "description": "one high performance php framework for coder as a gift",
   "keywords": ["quick learning php", "high performance php framework"],
-  "homepage": "https://github.com/assnr/ArPHP/tree/master/arphp5/arphp",
+  "homepage": "https://github.com/assnr/ArPHP",
   "type": "framework",
   "license": "MIT",
   "authors": [
@@ -16,6 +16,6 @@
     "php": ">=5.3.0"
   },
   "autoload": {
-    "psr-0": {"ar": "src/"}
+    "psr-0": {"ar": "arphp5/arphp/src/"}
   }
 }
