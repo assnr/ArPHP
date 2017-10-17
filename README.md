@@ -9,28 +9,17 @@ ar a gift for coders
 
 ### 安装
 
-1. composer install
-
-
+1. composer require assnr/arphp
 2. mkdir ori
-
-
 3. cd ori
-
-
 4. 新建入口文件 index.php
-
-内容
-
->
 >$loader = require '../vendor/autoload.php';
+
 >ar\core\Ar::init($loader);
 
 5. 浏览器访问入口文件
 
-
-
-## 2017/08/30  arphp4.0.1
+## 2017/08/30  arphp4.0.1 下载方式，交流群
 >文档地址：coop云开发（基于arphp4开发）http://www.coopcoder.com/ziyuan-982.shtml 网站改版中，请期待
 
 >加入控制器service ，命名空间 ，ason配置，目录灵活配置，支持php7，需要php5.3以上，ATML全新模板引擎，更优化的代码结构，
@@ -46,7 +35,7 @@ ar a gift for coders
 
 
 
-## 2017/06/20 更新 3.0版本
+## 2017/06/20 更新 3.0版本 下载方式，交流群
 >文档http://www.arphp.org/doc/index.html</br>
 >加入ATML模板引擎，
 >加入WEB CLI模式
@@ -74,7 +63,7 @@ ar a gift for coders
 
 
 
-## 2017/5/9更新 arphp2.0发布
+## 2017/5/9更新 arphp2.0发布 下载方式，交流群
 
 >文档http://www.arphp.org/doc/index.html
 
@@ -102,5 +91,4 @@ ar a gift for coders
 
 - 讨论： http://www.coopcoder.com/wenda/?c-12.html http://blog.arphp.org/
 
-- coop云开发：http://www.coopcoder.ccom (改版中。。。)
-
+- coop云开发：http://www.coopcoder.ccom (arphp开发，改版中。。。)
