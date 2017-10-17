@@ -1,0 +1,21 @@
+{
+  "name": "arphp/arphp",
+  "description": "one high performance php framework for coder as a gift",
+  "keywords": ["quick learning php", "high performance php framework"],
+  "homepage": "https://github.com/assnr/ArPHP/tree/master/arphp5/arphp",
+  "type": "framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "assnr yc",
+      "email": "ycassnr@gmail.com",
+      "homepage": "http://www.arphp.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-0": {"ar": "src/"}
+  }
+}
