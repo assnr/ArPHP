@@ -156,7 +156,7 @@ class Controller
         $renderFile = $renderSourceModulePath . $unikey . '.aptc';
 
         $tplFile = \ar\core\View::getViewFileAbsoluteName($view);
-        if (!\ar\core\View::isValidCache($tplFile, $renderFile)) :
+        if (\ar\core\cfg('REBUILD_TPL_CACHE') || !\ar\core\View::isValidCache($tplFile, $renderFile)) :
             $renderhtmlString = $this->fetch($view, true);
             $compireReusltString = \ar\core\View::compile($renderhtmlString, $this->assign);
             file_put_contents(
