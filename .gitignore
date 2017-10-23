@@ -1,12 +1,2 @@
 .htaccess
-main
-ws
-/Conf
-.hg
-.hgignore
-Arman
-test.php
-gof.php
-/Extension
-/cmd
-/Log
+packagistnotify
