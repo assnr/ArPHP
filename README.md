@@ -132,11 +132,14 @@ ar\core\Ar::init($loader);
 * 控制器其他方法
 > `init()` 第一个执行的方法
 `$this->showJson(['data' => 'dataname'])` 返回json数据, 自带retcode, retmsg
-`$this->showJsonError('没有权限')`
-`$this->showJsonSuccess('更新成功')`
-`$this->display()` 渲染action同名的模板
-`$this->display('user')` 渲染user.html模板, 默认模板后缀为.html， 可修改配置
 
+`$this->showJsonError('没有权限')`
+
+`$this->showJsonSuccess('更新成功')`
+
+`$this->display()` 渲染action同名的模板
+
+`$this->display('user')` 渲染user.html模板, 默认模板后缀为.html， 可修改配置
 
 
 
@@ -179,9 +182,9 @@ ar\core\Ar::init($loader);
 
 	}
 
-> * 其他地方调用方式
+> 其他地方调用方式
 
-> 查询
+* 查询
 
 `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->queryRow();// 按条件查一行 , 查所有字段, 返回一维数组`
 
@@ -204,11 +207,11 @@ ar\core\Ar::init($loader);
 `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->join|leftJoin|rightJoin('other table name')->queryAll();// 联表查询，不推荐`
 
 
-> * 修改
+* 修改
 
 > `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->update(['username' => 'ceshi2']);// 条件修改username为chshi2, 返回影响行数`
 
-> * 插入
+* 插入
 
 > `\ori\lib\model\Test::model()->getDb()->insert(['username' => 'ceshinew']);// 插入数据 username为chshinew, 返回主键last insert id`
 
@@ -216,20 +219,20 @@ ar\core\Ar::init($loader);
 `\ori\lib\model\Test::model()->getDb()->batchInsert([['username' => 'ceshinew'], 'username' => 'hehe']]);// 批量插入数据 , 返回boolean`
 
 
-> * 删除
+* 删除
 
 > `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->delete();// 条件删除， 返回 boolean`
 
 
 
-> 其他操作如跨库，多数据库，其他数据库类型等请加群讨论
+其他操作如跨库，多数据库，其他数据库类型等请加群讨论
 
 
 
 
 #### View
 
-> * 模板使用变量
+* 模板使用变量
 
 
 > `{{C.PATH.GPUBLIC}}` assets目录
@@ -242,7 +245,7 @@ ar\core\Ar::init($loader);
 
 
 
-> * 模板标签
+* 模板标签
 
 > `<if exp="$zhangsan == '张三'">我是张三<else/>我是谁？</if>` if语句写法，exp里面完全是php代码
 
@@ -288,7 +291,7 @@ ar\core\Ar::init($loader);
 
 #### 其他常用公共变量及方法
 
-> 常用公共函数
+* 常用公共函数
 > `\ar\core\get()`  获取$_GET数据, 转义了一些原生过来的数据
 
 `\ar\core\get('name')`  获取$_GET['name']数据
@@ -298,7 +301,7 @@ ar\core\Ar::init($loader);
 `\ar\core\request()`  获取$_REQUEST数据
 
 
-> * comp函数
+* comp函数
 
 >`\ar\core\comp('lists.session')->set('uid', 1)` 设置session
 
@@ -319,7 +322,7 @@ ar\core\Ar::init($loader);
 `\ar\core\comp('ext.upload')-upload($upField, $dest = '上传目标地址', $extension = 'all')` 上传文件 ， upField post过来的文件标志id
 
 
-> * 获取配置 全局配置文件 cfg/base.php , ar.ason文件CONFIG 位置
+* 获取配置 全局配置文件 cfg/base.php , ar.ason文件CONFIG 位置
 
 > `\ar\core\cfg()`  所有配置 ,   
 
@@ -329,30 +332,38 @@ ar\core\Ar::init($loader);
 
 `\ar\core\cfg('cfgkey0', 'defautValue')` 具体配置, 如果未设置， 返回defaultValue
 
-> * 获取路由参数
+* 获取路由参数
 
 > `\ar\core\cfg('requestRoute')`  用于动态配置信息，权限验证等
 
 
-> * 动态设置配置
+* 动态设置配置
 > \ar\core\Ar::setConfig('hello', '周五');
 
-> * 其他系统可配置的参数
+* 其他系统可配置的参数
 
 
-* URL_MODE  URL生成模式，默认PATH
-* DEBUG_SHOW_TRACE  URL生成模式，默认false
-* URL_MODE  URL生成模式，默认PATH
-* DEBUG_LOG 错误日志写入文件， 需要AR_DEBUG=false
-* TPL_SUFFIX 模板后缀，默认html
-* URL_ROUTE_RULES 路由规则，群里讨论
-* theme 主题， 默认def
-* REBUILD_TPL_CACHE 是否每次重建模板缓存，默认true，建议在线上设置false，加快访问速度
-* moduleLists 模块列表 默认['main'], 加入新的需要修改此处，可以在ar.ason配置
+URL_MODE  URL生成模式，默认PATH
 
-> * 说明：cfg/base.php 配置可以覆盖ar.ason配置，模块配置覆盖base配置 
+DEBUG_SHOW_TRACE  URL生成模式，默认false
 
-> * 全局常量
+URL_MODE  URL生成模式，默认PATH
+
+DEBUG_LOG 错误日志写入文件， 需要AR_DEBUG=false
+
+TPL_SUFFIX 模板后缀，默认html
+
+URL_ROUTE_RULES 路由规则，群里讨论
+
+theme 主题， 默认def
+
+REBUILD_TPL_CACHE 是否每次重建模板缓存，默认true，建议在线上设置false，加快访问速度
+
+moduleLists 模块列表 默认['main'], 加入新的需要修改此处，可以在ar.ason配置
+
+* 说明：cfg/base.php 配置可以覆盖ar.ason配置，模块配置覆盖base配置 
+
+* 全局常量
 
 > AR_DEBUG 是否调试模式， 默认true
 
@@ -371,7 +382,7 @@ AR_DEFAULT_CONTROLLER  默认为 Index
 AR_DEFAULT_ACTION 默认action 为index
 
 
-> * 链接生成
+* 链接生成
 
 > `\ar\core\url('otheraction')` 生成otheraction路由请求地址
 
@@ -383,11 +394,11 @@ AR_DEFAULT_ACTION 默认action 为index
 
 `\ar\core\url(['user/otheraction', ['uid' => 123， 'greedyUrl' => true]])` 生成User/otheraction路由, 带参数uid = 123, 生成链接的形式， 贪婪模式，保留之前请求的其他参数，筛选分类等常用
 
-> * 调用module, 一般比较公用各个模块都可以调用的方法， 相对于 service 是当前模块的调用
+* 调用module, 一般比较公用各个模块都可以调用的方法， 相对于 service 是当前模块的调用
 
 > `\ar\core\module('Test')->testFunc()`     ori\lib\module\Test.php  自定义类,  可以定义initModule() 每次调用初始化方法
 
-> * 访问说明
+* 访问说明
 
 > 入口文件.php/modulename/contro/action     modulename 模块  contro 控制器名字   action 里面的方法  , 默认的模块访问可省略modulename
 
