@@ -24,60 +24,60 @@ ar\core\Ar::init($loader);
 
 ### 目录结构说明
 
-# ar.ason
-* ar项目静态配置文件
+> * ar.ason
+ar项目静态配置文件
 
-# cfg
-* 配置文件夹
+> * cfg
+配置文件夹
 
-## cfg/base.php
-* 全局配置， 第一次安装复制base0.php > base.php, 数据库配置等
+>> cfg/base.php
+全局配置， 第一次安装复制base0.php > base.php, 数据库配置等
 
-## cfg/main.php
-* 模块配置
+>> cfg/main.php
+模块配置
 
 ---------
 
-# ori
-* 项目目录 建议线上设置的 DocumentRoot
+> * ori
+项目目录 建议线上设置的 DocumentRoot
 
-## ori/index.php
+>> ori/index.php
 * 访问入口文件
 
-## ori/ctl
-* 控制器目录
+>> ori/ctl
+控制器目录
 
-### ori/ctl/service
-* 模块控制器中间件service
+>>> ori/ctl/service
+模块控制器中间件service
 
-## ori/lib
-* 库目录
+>> ori/lib
+库目录
 
-### ori/lib/model
-* 数据库模型目录
+>>> ori/lib/model
+数据库模型目录
 
-### ori/lib/module
-* 全局公共库目录
+>>> ori/lib/module
+全局公共库目录
 
 
-## ori/assets
-* 全局公共css,js等静态资源目录
+>> ori/assets
+全局公共css,js等静态资源目录
 
-## ori/themes
-* 模块静态js,css等主题资源目录  （默认主题皮肤为def，可扩展，可定制）
+>> ori/themes
+模块静态js,css等主题资源目录  （默认主题皮肤为def，可扩展，可定制）
 
-## ori/view
-* 模块定义模板目录，（默认主题模板为def，可扩展多套模板，可定制）
-
----------
-
-# data
-* 缓存，日志，临时文件目录
+>> ori/view
+模块定义模板目录，（默认主题模板为def，可扩展多套模板，可定制）
 
 ---------
 
-# vendor
-* composer框架等目录
+> * data
+缓存，日志，临时文件目录
+
+---------
+
+> * vendor
+composer框架等目录
 
 ### 常用操作方法
 
@@ -186,42 +186,42 @@ ar\core\Ar::init($loader);
 
 * 查询
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->queryRow();// 按条件查一行 , 查所有字段, 返回一维数组`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->queryRow();`// 按条件查一行 , 查所有字段, 返回一维数组
 
-`\ori\lib\model\Test::model()->getDb()->select(['username', 'userid'])->where(['username' => 'ceshi'])->queryRow();// 按条件查一行, 自定字段`
+`\ori\lib\model\Test::model()->getDb()->select(['username', 'userid'])->where(['username' => 'ceshi'])->queryRow();`// 按条件查一行, 自定字段
 
-`\ori\lib\model\Test::model()->getDb()->select(['username', 'userid'])->where(['username' => 'ceshi'])->queryColumn('username');// 直接返回username列字符串`
+`\ori\lib\model\Test::model()->getDb()->select(['username', 'userid'])->where(['username' => 'ceshi'])->queryColumn('username');`// 直接返回username列字符串
 
-`\ori\lib\model\Test::model()->getDb()->queryAll();// 查所有, 返回二维数组, = where 传入空数组`
+`\ori\lib\model\Test::model()->getDb()->queryAll();`// 查所有, 返回二维数组, = where 传入空数组
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->queryAll();// 按条件查所有, 返回二维数组`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->queryAll();`// 按条件查所有, 返回二维数组
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->queryAll();// 按条件查所有 ,id 排序`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->queryAll();`// 按条件查所有 ,id 排序
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->queryAll('id');// 按条件查所有 ,id 排序, id为键值`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->queryAll('id');`// 按条件查所有 ,id 排序, id为键值
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->limit(10)->queryAll();// 按条件查所有 id 排序, 最多10条，limit一般配合分页类`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->order('id desc')->limit(10)->queryAll();`// 按条件查所有 id 排序, 最多10条，limit一般配合分页类
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->group('id')->queryAll();// 分组查询`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->group('id')->queryAll();`// 分组查询
 
-`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->join|leftJoin|rightJoin('other table name')->queryAll();// 联表查询，不推荐`
+`\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->join|leftJoin|rightJoin('other table name')->queryAll();`// 联表查询，不推荐
 
 
 * 修改
 
-> `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->update(['username' => 'ceshi2']);// 条件修改username为chshi2, 返回影响行数`
+> `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->update(['username' => 'ceshi2']);`// 条件修改username为chshi2, 返回影响行数
 
 * 插入
 
-> `\ori\lib\model\Test::model()->getDb()->insert(['username' => 'ceshinew']);// 插入数据 username为chshinew, 返回主键last insert id`
+> `\ori\lib\model\Test::model()->getDb()->insert(['username' => 'ceshinew']);`// 插入数据 username为chshinew, 返回主键last insert id
 
 
-`\ori\lib\model\Test::model()->getDb()->batchInsert([['username' => 'ceshinew'], 'username' => 'hehe']]);// 批量插入数据 , 返回boolean`
+`\ori\lib\model\Test::model()->getDb()->batchInsert([['username' => 'ceshinew'], 'username' => 'hehe']]);`// 批量插入数据 , 返回boolean
 
 
 * 删除
 
-> `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->delete();// 条件删除， 返回 boolean`
+> `\ori\lib\model\Test::model()->getDb()->where(['username' => 'ceshi'])->delete();`// 条件删除， 返回 boolean
 
 
 
@@ -343,43 +343,43 @@ ar\core\Ar::init($loader);
 * 其他系统可配置的参数
 
 
-URL_MODE  URL生成模式，默认PATH
+`URL_MODE`  URL生成模式，默认PATH
 
-DEBUG_SHOW_TRACE  URL生成模式，默认false
+`DEBUG_SHOW_TRACE`  URL生成模式，默认false
 
-URL_MODE  URL生成模式，默认PATH
+`URL_MODE`  URL生成模式，默认PATH
 
-DEBUG_LOG 错误日志写入文件， 需要AR_DEBUG=false
+`DEBUG_LOG` 错误日志写入文件， 需要AR_DEBUG=false
 
-TPL_SUFFIX 模板后缀，默认html
+`TPL_SUFFIX` 模板后缀，默认html
 
-URL_ROUTE_RULES 路由规则，群里讨论
+`URL_ROUTE_RULES` 路由规则，群里讨论
 
-theme 主题， 默认def
+`theme` 主题， 默认def
 
-REBUILD_TPL_CACHE 是否每次重建模板缓存，默认true，建议在线上设置false，加快访问速度
+`REBUILD_TPL_CACHE` 是否每次重建模板缓存，默认true，建议在线上设置false，加快访问速度
 
-moduleLists 模块列表 默认['main'], 加入新的需要修改此处，可以在ar.ason配置
+`moduleLists` 模块列表 默认['main'], 加入新的需要修改此处，可以在ar.ason配置
 
 * 说明：cfg/base.php 配置可以覆盖ar.ason配置，模块配置覆盖base配置 
 
 * 全局常量
 
-> AR_DEBUG 是否调试模式， 默认true
+> `AR_DEBUG` 是否调试模式， 默认true
 
-AR_ROOT_PATH , 入口文件上级目录, 系统跟目录
+`AR_ROOT_PATH` , 入口文件上级目录, 系统跟目录
 
-AR_ORI_NAME  默认ori
+`AR_ORI_NAME`  默认ori
 
-AR_ORI_PATH ori目录， 建议的DocumentRoot, 网站根目录
+`AR_ORI_PATH` ori目录， 建议的DocumentRoot, 网站根目录
 
-AR_SERVER_PATH 服务地址
+`AR_SERVER_PATH` 服务地址
 
-AR_DEFAULT_APP_NAME 默认访问模块名字，默认为main
+`AR_DEFAULT_APP_NAME` 默认访问模块名字，默认为main
 
-AR_DEFAULT_CONTROLLER  默认为 Index
+`AR_DEFAULT_CONTROLLER`  默认为 Index
 
-AR_DEFAULT_ACTION 默认action 为index
+`AR_DEFAULT_ACTION` 默认action 为index
 
 
 * 链接生成
