@@ -60,9 +60,7 @@ class Ar
         comp('url.skeleton')->parseGlobalAson();
         $loader->add(AR_ORI_NAME, dirname(AR_ORI_PATH));
 
-        if (AR_OUTER_START) :
-            defined('AR_MAN_PATH') or define('AR_MAN_PATH', AR_ROOT_PATH . AR_MAN_NAME . DS);
-        elseif (AR_AS_CMD) :
+        if (AR_AS_CMD) :
             defined('AR_CMD_PATH') or define('AR_CMD_PATH', AR_ROOT_PATH . AR_DEFAULT_APP_NAME . DS);
         else :
             set_exception_handler('\\ar\\core\\Ar::exceptionHandler');
@@ -80,15 +78,7 @@ class Ar
         // 子项目目录
         defined('AR_PUBLIC_CONFIG_PATH') or define('AR_PUBLIC_CONFIG_PATH', AR_ROOT_PATH . 'cfg' . DS);
 
-        // 外部扩展库工具
-        if (AR_OUTER_START) :
-            Ar::c('url.skeleton')->generateIntoOther();
-            $comonConfigFile = realpath(dirname(AR_MAN_PATH)) . DS . 'cfg' . DS . 'base.php';
-            self::$_config = \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(
-                Ar::import($comonConfigFile, true),
-                Ar::import(AR_MAN_PATH . 'cfg' . DS . 'base.php')
-            );
-        elseif (AR_AS_WEB || AR_AS_WEB_CLI) :
+        if (AR_AS_WEB || AR_AS_WEB_CLI) :
             // 目录生成
             Ar::c('url.skeleton')->generate();
             // 公共配置
@@ -111,8 +101,18 @@ class Ar
                 endif;
             endif;
 
-            // 路由解析
-            Ar::c('url.route')->parse();
+            self::$_config = \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(
+                Ar::import(AR_CONFIG_PATH . 'default.php', true),
+                self::$_config
+            );
+
+            // 外部工具包
+            if (AR_OUTER_START) :
+                return;
+            else :
+                // 路由解析
+                Ar::c('url.route')->parse();
+            endif;
 
         // 命令行模式
         elseif (AR_AS_CMD) :
@@ -124,11 +124,6 @@ class Ar
                 Ar::import(AR_CMD_PATH . 'Conf' . DS . 'app.config.php', true)
             );
         endif;
-
-        self::$_config = \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(
-            Ar::import(AR_CONFIG_PATH . 'default.php', true),
-            self::$_config
-        );
 
         \ar\core\App::run();
 

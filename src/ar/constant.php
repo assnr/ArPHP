@@ -1,6 +1,6 @@
 <?php
 // version
-define('AR_VERSION', '5.0.6');
+define('AR_VERSION', '5.0.7');
 // 启动时间
 defined('AR_START_TIME') or define('AR_START_TIME', microtime(true));
 // // 开启调试 是

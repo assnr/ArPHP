@@ -263,7 +263,7 @@ return array(
     "AR_RUN_AS_SERVICE_HTTP": false,
     "AR_AS_CMD": false,
     "AR_AS_WEB_CLI": false,
-    "AR_MAN_NAME": "Arman",
+    "AR_MAN_NAME": "man",
     "AR_PUBLIC_CONFIG_FILE": "",
     "AR_DEFAULT_APP_NAME": "main",
     "AR_DEFAULT_CONTROLLER": "Index",
