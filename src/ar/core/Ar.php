@@ -101,11 +101,6 @@ class Ar
                 endif;
             endif;
 
-            self::$_config = \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(
-                Ar::import(AR_CONFIG_PATH . 'default.php', true),
-                self::$_config
-            );
-
             // 外部工具包
             if (AR_OUTER_START) :
                 return;
@@ -113,6 +108,11 @@ class Ar
                 // 路由解析
                 Ar::c('url.route')->parse();
             endif;
+
+            self::$_config = \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(
+                Ar::import(AR_CONFIG_PATH . 'default.php', true),
+                self::$_config
+            );
 
         // 命令行模式
         elseif (AR_AS_CMD) :

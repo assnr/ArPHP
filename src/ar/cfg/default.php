@@ -16,7 +16,7 @@ return array(
     'PATH' => array(
         // Web服务器地址
         'APP_SERVER_PATH' => AR_SERVER_PATH . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . '/')),
-        'PUBLIC' => AR_SERVER_PATH . 'themes' . '/' . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . '/')) . \ar\core\cfg('theme') . '/',
+        'PUBLIC' => AR_SERVER_PATH . 'themes' . '/' . \ar\core\cfg('requestRoute.a_m') . '/' . \ar\core\cfg('theme') . '/',
         'GPUBLIC' => AR_ASSETS_SERVER_PATH,
         // 兼容以前
         'CACHE' => AR_DATA_PATH . 'Cache' . DS,
