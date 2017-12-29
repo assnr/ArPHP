@@ -275,6 +275,7 @@ return array(
     "CONFIG": {
         "moduleLists": ["main"],
         "theme": "def",
+        "REBUILD_TPL_CACHE": true,
         "DEBUG_SHOW_TRACE": true,
         "TPL_SUFFIX": "html"
     }
