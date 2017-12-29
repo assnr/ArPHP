@@ -2,9 +2,65 @@ ArPHP
 =====
 ar a gift for coders
 --------------------
+## 2017/12/29  支持 retful api 5.0.9发布
+> 直接上代码了 (控制器代码)
+<?php
+/**
+ * Powerd by ArPHP.
+ *
+ * default Controller.
+ *
+ */
+namespace ori\ctl\main;
+use \ar\core\ApiController as Controller;
+/**
+ * 新增了ApiController
+ */
+class Index extends Controller
+{
+    // 第一个被执行的初始化方法
+    public function init()
+    {
+        // $this->request 请求参数数组， 控制器任意地方可调用
+        // var_dump($this->request);
+    }
+
+    // get请求
+    public function get_param(String $aa, Int $bb)
+    {
+        //var_dump($this->request);
+        var_dump($aa, $bb);
+    }
+
+    // post 请求
+    public function post_param($p1, $p2)
+    {
+        var_dump($this->request);
+        var_dump();
+
+    }
+
+    // get请求无参数
+    public function get_noparam()
+    {
+        echo 'get no params';
+
+    }
+
+    // request 请求 支持post 和 get 请求
+    public function actionrequest($p1 = 'hello', $p2 = ' arphp')
+    {
+        echo 'action request';
+        var_dump($p1 . $p2);
+
+    }
+
+}
+
+--------------------------------------------------------
+
 
 ## 2017/10/16  整合之前各个版本及arphp5.0.1发布
->后面长期更新版本, 文档后续放出
 >支持composer, 支持php7, 长期文档支持版本
 
 ### 安装
@@ -315,7 +371,7 @@ composer框架等目录
 
 `\ar\core\comp('tools.log')->record(['d' => 'dname'], 'logfile')` 打日志，以日期目录可在data/log查看
 
-`\ar\core\comp('tools.Util')->getClientIp()` 获取客户端IP， 
+`\ar\core\comp('tools.Util')->getClientIp()` 获取客户端IP，
 
 `\ar\core\comp('tools.Util')->substr_cut($str, $len, $charset="utf-8")` 截取字符串， util其他函数可查看源文件
 
@@ -326,7 +382,7 @@ composer框架等目录
 
 > `\ar\core\cfg()`  所有配置 ,   
 
-`\ar\core\cfg('cfgkey0')` 具体配置, 
+`\ar\core\cfg('cfgkey0')` 具体配置,
 
 `\ar\core\cfg('cfgkey0.subkey')`  子配置
 
@@ -361,7 +417,7 @@ composer框架等目录
 
 `moduleLists` 模块列表 默认['main'], 加入新的需要修改此处，可以在ar.ason配置
 
-* 说明：cfg/base.php 配置可以覆盖ar.ason配置，模块配置覆盖base配置 
+* 说明：cfg/base.php 配置可以覆盖ar.ason配置，模块配置覆盖base配置
 
 * 全局常量
 
