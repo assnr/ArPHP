@@ -4,7 +4,7 @@ ar a gift for coders
 --------------------
 ## 2017/12/29  支持 retful api 5.0.9发布
 > 直接上代码了 (控制器代码)
-namespace ori\ctl\main;
+`namespace ori\ctl\main;
 use \ar\core\ApiController as Controller;
 /**
  * 新增了ApiController
@@ -49,7 +49,7 @@ class Index extends Controller
     }
 
 }
-
+`
 --------------------------------------------------------
 
 
