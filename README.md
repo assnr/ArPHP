@@ -3,11 +3,14 @@ ArPHP
 ar a gift for coders
 --------------------
 ## 2017/12/29  支持 retful api 5.0.9发布
-> 直接上代码了 (控制器代码)
-`namespace ori\ctl\main;
+> 直接上代码 (控制器代码)
+
+<pre>
+namespace ori\ctl\main;  
 use \ar\core\ApiController as Controller;
+
 /**
- * 新增了ApiController
+ * 新增了ApiController  
  */
 class Index extends Controller
 {
@@ -18,7 +21,7 @@ class Index extends Controller
         // var_dump($this->request);
     }
 
-    // get请求
+    // get请求 并且严格限制参数类型 , 参数严格按字母顺序
     public function get_param(String $aa, Int $bb)
     {
         //var_dump($this->request);
@@ -49,7 +52,7 @@ class Index extends Controller
     }
 
 }
-`
+</pre>
 --------------------------------------------------------
 
 
