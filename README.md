@@ -51,13 +51,13 @@ class Index extends Controller
 
     }
 
-		// 错误异常回调
-		public handleError($errorMsg)
+    // 错误异常回调
+    public handleError($errorMsg)
 		{
-				// 对父类的错误函数进行重置，定义其他的一些异常行为
-				parent::handleError($errorMsg);
+        // 对父类的错误函数进行重置，定义其他的一些异常行为
+        parent::handleError($errorMsg);
 
-		}
+    }
 
 }
 
