@@ -230,4 +230,45 @@ class Util extends Component
 
     }
 
+    /**
+     * 是否是AJAx提交的
+     * @return bool
+     */
+   public function isAjax()
+   {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * 是否是GET提交的
+     */
+    public function isGet()
+    {
+        return $_SERVER['REQUEST_METHOD'] == 'GET' ? true : false;
+
+    }
+
+    /**
+     * 是否是POST提交的
+     */
+    public function isPost()
+    {
+        return $_SERVER['REQUEST_METHOD'] == 'POST' ? true : false;
+
+    }
+
+    /**
+     * 是否是POST提交的
+     */
+    public function isPut()
+    {
+        return $_SERVER['REQUEST_METHOD'] == 'PUT' ? true : false;
+
+    }
+
 }

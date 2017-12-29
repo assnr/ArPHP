@@ -100,7 +100,7 @@ class ApplicationWeb extends Application
         if (class_exists($class)) :
             $this->_c = new $class;
             $action = ($a = empty($route['a_a']) ? AR_DEFAULT_ACTION : $route['a_a']);
-
+            $this->route['a_a'] = $a;
             switch ($action) {
                 case 'init':
                     throw new \ar\core\Exception('Action: ' . $action . ' not found');
@@ -111,30 +111,66 @@ class ApplicationWeb extends Application
                     break;
             }
 
-            if (!method_exists($this->_c, $action)) :
-                throw new \ar\core\Exception('Action: ' . $action . ' not found');
-            endif;
+            $preAction = $action;
 
-            $this->_c->init();
-            $this->route['a_a'] = $a;
+            if (get_parent_class($this->_c) === 'ar\core\ApiController') :
+                if (\ar\core\comp('tools.util')->isGet()) :
+                    $this->_c->request = \ar\core\get();
+                    $action = 'get_' . $action;
+                elseif (\ar\core\comp('tools.util')->isPost()) :
+                    $this->_c->request = \ar\core\post();
+                    $action = 'post_' . $action;
+                elseif (\ar\core\comp('tools.util')->isPut()) :
+                    $this->_c->request = \ar\core\request();
+                    $action = 'put_' . $action;
+                endif;
 
-            if (is_callable(array($this->_c, $action))) :
+                if (!method_exists($this->_c, $action)) :
+                    $action = $preAction;
+                    if (!method_exists($this->_c, $action)) :
+                        $errorMsg = 'Action: ' . $action . ' not found';
+                        $this->_c->handleError($errorMsg);
+                    else :
+                        $this->_c->request = \ar\core\request();
+                    endif;
+                endif;
+
                 try {
-                    if (AR_DEBUG && !AR_AS_CMD) :
-                        \ar\core\comp('ext.out')->deBug('|ACTION_RUN:' . $action . '|');
+                    if (!$this->_c->request) :
+                        $this->_c->request = [];
                     endif;
-                    $this->_c->$action();
-                    if (AR_AS_OUTER_FRAME) :
-                        exit;
-                    endif;
+                    ksort($this->_c->request);
+                    $this->_c->init();
+                    call_user_func_array(array($this->_c, $action), $this->_c->request);
                 } catch (\ar\core\Exception $e) {
-                    if (!AR_AS_OUTER_FRAME) :
-                        throw new \ar\core\Exception($e->getMessage());
-                    endif;
+                    $this->_c->handleError($e->getMessage());
                 }
+
             else :
-                if (!AR_AS_OUTER_FRAME) :
-                    throw new \ar\core\Exception('Action ' . $action . ' not found');
+                if (!method_exists($this->_c, $action)) :
+                    throw new \ar\core\Exception('Action: ' . $action . ' not found');
+                endif;
+
+                $this->_c->init();
+
+                if (is_callable(array($this->_c, $action))) :
+                    try {
+                        if (AR_DEBUG && !AR_AS_CMD) :
+                            \ar\core\comp('ext.out')->deBug('|ACTION_RUN:' . $action . '|');
+                        endif;
+                        $this->_c->$action();
+                        if (AR_AS_OUTER_FRAME) :
+                            exit;
+                        endif;
+                    } catch (\ar\core\Exception $e) {
+                        if (!AR_AS_OUTER_FRAME) :
+                            throw new \ar\core\Exception($e->getMessage());
+                        endif;
+                    }
+                else :
+                    if (!AR_AS_OUTER_FRAME) :
+                        throw new \ar\core\Exception('Action ' . $action . ' not found');
+                    endif;
                 endif;
             endif;
         else :
