@@ -2,7 +2,7 @@ ArPHP
 =====
 ar a gift for coders
 --------------------
-## 2017/12/29  支持 retful api 5.0.9发布
+## 2017/12/29  支持 restful api 5.0.9发布
 > 直接上代码 (控制器代码)
 
 <pre>
