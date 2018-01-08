@@ -41,11 +41,6 @@ class Ar
     // autoload path
     static public $autoLoadPath;
 
-    static public function testgein() {
-        echo 'get in';
-
-    }
-
     /**
      * init application.
      *
@@ -456,16 +451,20 @@ class Ar
      *
      * @return void
      */
-    static public function exceptionHandler($e)
+    static public function exceptionHandler($exception)
     {
-        if (get_class($e) === '\ar\core\ServiceException') :
-            \ar\core\comp('rpc.service')->response(array('error_code' => '1001', 'error_msg' => $e->getMessage()));
+        if (get_class($exception) === '\ar\core\ServiceException') :
+            \ar\core\comp('rpc.service')->response(array('error_code' => '1001', 'error_msg' => $exception->getMessage()));
             exit;
         endif;
 
         if (AR_DEBUG && !AR_AS_CMD) :
-            $msg = '<b style="color:#ec8186;">' . get_class($e) . ',code:'. $e->getCode() .'</b> : ' . $e->getMessage();
-            echo $msg;
+            echo '<div style="color: #8a6d3b;background-color: #fcf8e3;border-color: #faebcc;padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px">';
+            echo '<b style="color:#ec8186;">' . get_class($exception) . ',code:'. $exception->getCode() .'</b> : ' . $exception->getMessage();
+            echo $exception->getMessage() . '<br>';
+            echo 'Stack trace:<pre>' . $exception->getTraceAsString() . '</pre>';
+            echo 'thrown in <b>' . $exception->getFile() . '</b> on line <b>' . $exception->getLine() . '</b><br>';
+            echo '</div>';
         endif;
 
     }

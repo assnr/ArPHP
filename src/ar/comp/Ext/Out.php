@@ -56,7 +56,6 @@ class Out extends Component
                 if (is_array($data)) :
                     if (!isset($data['ret_code']) || !isset($data['ret_msg'])) :
                         $retArr['data'] = $data;
-                        $retArr['total_lines'] = Ar::c('validator.validator')->checkMutiArray($data) ? (string)count($data) : 1;
                     else :
                         if (!empty($data['error_msg']) && empty($data['ret_code'])) :
                             $retArr['ret_code'] = "1001";
@@ -110,8 +109,15 @@ class Out extends Component
 
         if ($show && !empty($deBugMsg[$tag])) :
             $showContentBox = array(
-                    'header' => '<div style="width:98%;bottom:30px"><div style="border-top:1px #666 dashed;background:#f1f1f1;text-align:center;font-size:20px;margin:10px 0px 10px;">[DEBUG ' . $tag . ' INFO] </div>',
-                    'showMsg' => '<div style="padding:5px;background:#f3f3f1;line-height:30px">' . $deBugMsg[$tag] . '</div>',
+                    'header' => '<div style="width:98%;margin-top:50px;bottom:2px;padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    "><div style="text-align:center;font-size:20px;margin:2px 0px 10px;">[DEBUG ' . $tag . ' INFO] </div>',
+                    'showMsg' => '<div style="font-size:12px;padding:5px;background:#fff;line-height:16px">' . $deBugMsg[$tag] . '</div>',
                     'footer' => '</div>',
                 );
 
