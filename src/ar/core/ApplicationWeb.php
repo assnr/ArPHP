@@ -144,9 +144,21 @@ class ApplicationWeb extends Application
                     if (!$this->_c->request) :
                         $this->_c->request = [];
                     endif;
-                    ksort($this->_c->request);
                     $this->_c->init();
-                    call_user_func_array(array($this->_c, $action), $this->_c->request);
+                    $reflection = new \ReflectionMethod($this->_c, $action);
+                    $pass = array();
+                    foreach($reflection->getParameters() as $param) :
+                        if(isset($this->_c->request[$param->getName()])) :
+                          $pass[] = $this->_c->request[$param->getName()];
+                        else :
+                            try {
+                                $pass[] = $param->getDefaultValue();
+                            } catch (\ReflectionException $e) {
+                                throw new \ar\core\Exception('param "' . $param->getName() . '" is missing ', 2010);
+                            }
+                        endif;
+                    endforeach;
+                    call_user_func_array(array($this->_c, $action), $pass);
                 } catch (\ar\core\Exception $e) {
                     $this->_c->handleError($e->getMessage());
                 }
