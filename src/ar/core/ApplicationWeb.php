@@ -113,7 +113,12 @@ class ApplicationWeb extends Application
 
             $preAction = $action;
 
-            if (get_parent_class($this->_c) === 'ar\core\ApiController') :
+            $parentClassName = get_parent_class($this->_c);
+            if ($parentClassName !== '\ar\core\Controller' && $parentClassName !== '\ar\core\ArController') :
+                $parentClassName = get_parent_class($parentClassName);
+            endif;
+
+            if ($parentClassName === 'ar\core\ApiController') :
                 if (\ar\core\comp('tools.util')->isGet()) :
                     $this->_c->request = \ar\core\get();
                     $action = 'get_' . $action;
