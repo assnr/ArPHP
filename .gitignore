@@ -1,2 +1,4 @@
 .htaccess
 packagistnotify
+.tags*
+vendor

@@ -190,38 +190,28 @@ function request($key = '', $default = null, $addArray = array())
     endif;
 
     return $ret;
-
 }
 
-/**
- * echo for default arEcho => dump
- *
- * @param string $echo    echo.
- * @param string $default default out.
- * @param string $key     key.
- * @param bool   $ifecho  ifecho.
- *
- * @return void
- */
-function dump($echo = '', $default = '', $key = '', $ifecho = true)
+// service
+function service($name, $params = [])
 {
-    if (is_array($default)) :
-        $index = (int)$echo;
-        if (\ar\core\comp('validator.validator')->checkMutiArray($default)) :
-            $echo = !empty($default[$index]) && !empty($default[$index][$key]) ? $default[$index][$key] : '';
-        else :
-            $echo = empty($default[$index]) ? '' : $default[$index];
-        endif;
-    else :
-        if (empty($echo)) :
-            $echo = $default;
-        endif;
+    static $serviceHandler = [];
+    $serviceClassName = AR_ORI_NAME . '\ctl\\' . cfg('requestRoute.a_m') . '\\' . 'service\\' . $name;
+    if (!isset($serviceHandler[$serviceClassName])) :
+        $plength = count($params);
+        try {
+            if ($plength == 0) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName();
+            elseif ($plength == 1) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0]);
+            elseif ($plength == 2) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1]);
+            elseif ($plength == 3) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1], $params[2]);
+            endif;
+        } catch (Exception $e) {
+            throw new Exception("Service " . $serviceClassName . ' not found ', 1004);
+        }
     endif;
-
-    if ($ifecho) :
-        echo $echo;
-    else :
-        return $echo;
-    endif;
-
+    return $serviceHandler[$serviceClassName];
 }

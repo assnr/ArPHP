@@ -61,24 +61,10 @@ class Controller
     {
         preg_match('#get(\S+)Service#', $name, $matchService);
         if (!empty($matchService[1])) :
-            $serviceClassName = AR_ORI_NAME . '\ctl\\' . cfg('requestRoute.a_m') . '\\' . 'service\\' . $matchService[1];
-            if (!isset(self::$serviceHandler[$serviceClassName])) :
-                $plength = count($params);
-              if ($plength == 0) :
-                    self::$serviceHandler[$serviceClassName] = new $serviceClassName();
-                elseif ($plength == 1) :
-                    self::$serviceHandler[$serviceClassName] = new $serviceClassName($params[0]);
-                elseif ($plength == 2) :
-                    self::$serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1]);
-                elseif ($plength == 3) :
-                    self::$serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1], $params[2]);
-                endif;
-            endif;
-            return self::$serviceHandler[$serviceClassName];
+            return service($matchService[1], $params);
         else :
             throw new \ar\core\Exception("class do not have a method $name");
         endif;
-
     }
 
     /**
