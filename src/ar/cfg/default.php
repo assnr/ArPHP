@@ -18,11 +18,6 @@ return array(
         'APP_SERVER_PATH' => AR_SERVER_PATH . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . '/')),
         'PUBLIC' => AR_SERVER_PATH . 'themes' . '/' . \ar\core\cfg('requestRoute.a_m') . '/' . \ar\core\cfg('theme') . '/',
         'GPUBLIC' => AR_ASSETS_SERVER_PATH,
-        // 兼容以前
-        'CACHE' => AR_DATA_PATH . 'Cache' . DS,
-        'LOG' => AR_ROOT_PATH . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . DS)) . 'Log' . DS,
-        'VIEW' => AR_ROOT_PATH . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . DS)) . 'View' . DS,
-        'UPLOAD' => AR_ROOT_PATH . (!\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) ? '' : (\ar\core\cfg('requestRoute.a_m', AR_MAN_NAME) . DS)) . 'Upload' . DS,
     ),
     // dir
     'DIR' => array(

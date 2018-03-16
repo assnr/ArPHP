@@ -65,10 +65,11 @@ class Upload extends Component
      * @param string $upField   upload field.
      * @param string $dest      upload destination.
      * @param string $extension allow file extension.
+     * @param string $picName   图片名称
      *
      * @return mixed
      */
-    public function upload($upField, $dest = '', $extension = 'all')
+    public function upload($upField, $dest = '', $extension = 'img', $picName = '')
     {
         $this->errorMsg = null;
 
@@ -76,12 +77,16 @@ class Upload extends Component
 
         if (!empty($_FILES[$this->upField]) && empty($_FILES['error']) && is_uploaded_file($_FILES[$this->upField]['tmp_name'])) :
             if ($extension == 'all' || $this->checkFileType($this->getFileExtensionName($_FILES[$this->upField]['name']), $extension)) :
-                $dest = empty($dest) ? \ar\core\cfg('PATH.UPLOAD') : $dest;
+
+                if (empty($dest)) :
+                    $dest = \ar\core\cfg('DIR.UPLOAD') . date('Ymd', time());
+                endif;
+
                 if (!is_dir($dest)) :
                     mkdir($dest, 0777, true);
                 endif;
 
-                $upFileName = $this->generateFileName();
+                $upFileName = $picName ? $picName : $this->generateFileName();
 
                 $destFile = rtrim($dest, DS) . DS . $upFileName;
 
@@ -108,7 +113,7 @@ class Upload extends Component
         if (!!$this->errorMsg) :
             return false;
         else :
-            return $upFileName;
+            return ['filename' => $upFileName, 'full_path_name' => $destFile];
         endif;
 
     }
