@@ -114,7 +114,7 @@ class ApplicationWeb extends Application
             $preAction = $action;
 
             $parentClassName = get_parent_class($this->_c);
-            if ($parentClassName !== '\ar\core\Controller' && $parentClassName !== '\ar\core\ArController') :
+            if ($parentClassName !== 'ar\core\Controller' && $parentClassName !== 'ar\core\ApiController') :
                 $parentClassName = get_parent_class($parentClassName);
             endif;
 

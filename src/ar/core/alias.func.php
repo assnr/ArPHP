@@ -192,6 +192,49 @@ function request($key = '', $default = null, $addArray = array())
     return $ret;
 }
 
+/**
+ * Html segment.
+ *
+ * @param string  $seg     html 片段 通过 $this->assign 分配.
+ * @param boolean $autoCre 自动生成布局文件.
+ *
+ * @return void
+ */
+function seg($segment, $autoCre = false)
+{
+    if (!is_array($segment)) :
+        throw new \ar\core\Exception("segment must be an array");
+    endif;
+
+    if (empty($segment['segKey'])) :
+        $keyBundle = array_keys($segment);
+        $segKey = $keyBundle[0];
+    else :
+        $segKey = $segment['segKey'];
+    endif;
+    extract($segment);
+    $segFile = \ar\core\cfg('DIR.SEG') . str_replace('/', DS, $segKey) . '.seg';
+    if (!is_file($segFile)) :
+        $segFile .= '.php';
+        if (!is_file($segFile)) :
+            throw new \ar\core\Exception("segment file " . $segFile . ' not found');
+        endif;
+    endif;
+
+    if ($autoCre) :
+        \ar\core\comp('tool.util')->copy(\ar\core\cfg('DIR.SEG') . 'Tpl' . DS . 'Public', AR_ROOT_PATH . 'Public');
+        \ar\core\comp('tool.util')->copy(\ar\core\cfg('DIR.SEG') . 'Tpl' . DS . 'Layout', \ar\core\cfg('DIR.VIEW') . 'Layout');
+    endif;
+
+    extract(\ar\core\cfg('BUNDLE_VIEW_ASSIGN', array()));
+    if (isset($segment['include_once']) && $segment['include_once'] == 1) :
+        include_once $segFile;
+    else :
+        include $segFile;
+    endif;
+
+}
+
 // service
 function service($name, $params = [])
 {
