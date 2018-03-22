@@ -51,6 +51,7 @@ class Out extends Component
                 $retArr = array(
                     'ret_code' => '1000',
                     'ret_msg' => '',
+                    'success' => '1',
                 );
 
                 if (is_array($data)) :

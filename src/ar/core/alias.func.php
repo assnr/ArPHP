@@ -256,5 +256,8 @@ function service($name, $params = [])
             throw new Exception("Service " . $serviceClassName . ' not found ', 1004);
         }
     endif;
+    if (is_callable([$serviceHandler[$serviceClassName], 'init'])) {
+        call_user_func_array([$serviceHandler[$serviceClassName], 'init'], []);
+    }
     return $serviceHandler[$serviceClassName];
 }
