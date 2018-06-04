@@ -367,7 +367,7 @@ class View
 
             $r = \ar\core\cfg('requestRoute');
             if (empty($view)) :
-                $viewPath .= $r['a_c'] . DS . $r['a_a'];
+                $viewPath .= lcfirst($r['a_c']) . DS . $r['a_a'];
             elseif(strpos($view, '/') !== false) :
                 if (substr($view, 0, 1) == '/') :
                     $absolute = true;
