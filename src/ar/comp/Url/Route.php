@@ -103,7 +103,7 @@ class Route extends Component
      */
     public function serverName()
     {
-        return 'http://' . $_SERVER['HTTP_HOST'];
+        return strtolower($_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST'];
 
     }
 
