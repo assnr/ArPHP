@@ -238,6 +238,12 @@ function seg($segment, $autoCre = false)
 // service
 function service($name, $params = [])
 {
+    if ($ds_name = \ar\core\cfg('AR_DS_NAME')) {
+        $ds_cfg = \ar\core\cfg('AR_DS_CFG.' . $ds_name);
+        $dsClassName = $ds_name . '.' . $ds_cfg['MODULE_NAME'] . '.' . $name;
+        return d_service($dsClassName, $params);
+    }
+
     static $serviceHandler = [];
     $serviceClassName = AR_ORI_NAME . '\ctl\\' . cfg('requestRoute.a_m') . '\\' . 'service\\' . $name;
     if (!isset($serviceHandler[$serviceClassName])) :
@@ -259,5 +265,59 @@ function service($name, $params = [])
     if (is_callable([$serviceHandler[$serviceClassName], 'init'])) {
         call_user_func_array([$serviceHandler[$serviceClassName], 'init'], []);
     }
+    return $serviceHandler[$serviceClassName];
+}
+
+// data service
+function d_service($name, $params = [])
+{
+    list($projectName, $moduleName, $serviceName) = explode('.', $name);
+
+    if (\ar\core\cfg('AR_DS_NAME')) {
+        \ar\core\cfg('AR_PRE_DS_NAME', \ar\core\cfg('AR_DS_NAME'));
+    }
+
+    \ar\core\Ar::setConfig('AR_DS_NAME', $projectName);
+
+    $ds_dir = dirname(AR_ROOT_PATH) . '/' . $projectName . '/';
+    $ds_ason_file = $ds_dir . 'ar.ason';
+    if (!file_exists($ds_ason_file)) {
+        throw new \ar\core\ArException('Project "' . $projectName . '" is not an ar ds project', 1);
+    }
+    $ason_cfg = json_decode(file_get_contents($ds_ason_file), 1);
+    $ds_ori_name = $ason_cfg['AR_ORI_NAME'];
+    \ar\core\Ar::setConfig('AR_DS_CFG.' . $projectName, [
+        'ROOT_PATH' => $ds_dir,
+        'MODULE_NAME' => $moduleName,
+        'ORI_NAME' => $ds_ori_name,
+    ]);
+
+    static $serviceHandler = [];
+    $serviceClassName = $ds_ori_name . '\ctl\\' . $moduleName . '\\' . 'service\\' . $serviceName;
+
+    if (!isset($serviceHandler[$serviceClassName])) :
+        $plength = count($params);
+        try {
+            if ($plength == 0) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName();
+            elseif ($plength == 1) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0]);
+            elseif ($plength == 2) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1]);
+            elseif ($plength == 3) :
+                $serviceHandler[$serviceClassName] = new $serviceClassName($params[0], $params[1], $params[2]);
+            endif;
+        } catch (Exception $e) {
+            throw new Exception("Service " . $serviceClassName . ' not found ', 1004);
+        }
+    endif;
+    if (is_callable([$serviceHandler[$serviceClassName], 'init'])) {
+        call_user_func_array([$serviceHandler[$serviceClassName], 'init'], []);
+    }
+
+    if (\ar\core\cfg('AR_PRE_DS_NAME')) {
+        \ar\core\cfg('AR_DS_NAME', \ar\core\cfg('AR_PRE_DS_NAME'));
+    }
+
     return $serviceHandler[$serviceClassName];
 }

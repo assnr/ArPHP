@@ -55,6 +55,8 @@ class Ar
         comp('url.skeleton')->parseGlobalAson();
         $loader->add(AR_ORI_NAME, dirname(AR_ORI_PATH));
 
+        // $loader->add('p1', '/var/www/html/p1');
+
         if (AR_AS_CMD) :
             defined('AR_CMD_PATH') or define('AR_CMD_PATH', AR_ROOT_PATH . AR_DEFAULT_APP_NAME . DS);
         else :
@@ -108,6 +110,8 @@ class Ar
                 Ar::import(AR_CONFIG_PATH . 'default.php', true),
                 self::$_config
             );
+
+            spl_autoload_register('self::autoLoader');
 
         // 命令行模式
         elseif (AR_AS_CMD) :
@@ -353,7 +357,13 @@ class Ar
             $class = str_replace('ar\\', '', $class);
             $classFile = AR_FRAME_PATH . str_replace('\\', DS, $class) . '.php';
         else :
-            $classFile = AR_ORI_PATH . str_replace('\\', DS, $class) . '.php';
+            if (\ar\core\cfg('AR_DS_NAME')) {
+                $ds_name = \ar\core\cfg('AR_DS_NAME');
+                $ds_cfg = \ar\core\cfg('AR_DS_CFG.' . $ds_name);
+                $classFile = $ds_cfg['ROOT_PATH'] . str_replace('\\', DS, $class) . '.php';
+            } else {
+                $classFile = AR_ORI_PATH . str_replace('\\', DS, $class) . '.php';
+            }
         endif;
 
         if (is_file($classFile)) :

@@ -1,6 +1,31 @@
 ArPHP
 =====
-高性能的组件化多模式PHP框架，相信总有个模式能满足您的运用场景
+
+
+- 支持composer, 支持php7, 支持restful接口定义
+- 长期支持版本
+
+### 安装
+
+1. `composer require assnr/arphp`
+2. `mkdir ori`
+3. `cd ori`
+4. 新建入口文件 index.php
+> <?php
+
+$loader = require '../vendor/autoload.php';
+
+ar\core\Ar::init($loader);
+
+5. 浏览器访问入口文件查看效果
+### 升级
+- `composer update`
+
+
+2018-08-21 v5.1.11
+全新升级，构建无限膨胀型应用，为大数据而生。
+引入数据驱动微服务架构，无限横向扩展，子项目可独立部署，d_service数据通道，只为构建超级平台生态链。
+
 --------------------
 ## 2017/12/29  支持 restful api 5.0.9发布
 ### restful接口相关项目
@@ -25,7 +50,7 @@ class Index extends Controller
     }
 
     // get请求 并且严格限制参数类型 , 参数严格按字母顺序
-    public function get_param(String $aa, Int $bb)
+    public function get_param($aa, int $bb)
     {
         //var_dump($this->request);
         var_dump($aa, $bb);
@@ -68,27 +93,6 @@ class Index extends Controller
 --------------------------------------------------------
 
 
-## 2017/10/16  整合之前各个版本及**arphp5.0.1**发布
-- 文档将会以[ardoc](https://github.com/assnr/arphp-php)生成发布，敬请期待
-### 新的属性
-- 支持composer, 支持php7, 支持restful接口定义
-- 长期文档支持版本
-
-### 安装
-
-1. `composer require assnr/arphp`
-2. `mkdir ori`
-3. `cd ori`
-4. 新建入口文件 index.php
-> <?php
-
-$loader = require '../vendor/autoload.php';
-
-ar\core\Ar::init($loader);
-
-5. 浏览器访问入口文件查看效果
-### 升级
-- `composer update`
 
 
 ### 目录结构说明

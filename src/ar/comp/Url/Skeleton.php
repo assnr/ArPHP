@@ -72,8 +72,8 @@ class Skeleton extends \ar\comp\Component
             $this->basePath . 'view',
             $this->basePath . 'view/main',
             $this->basePath . 'view/main/def',
-            $this->basePath . 'view/main/def/Index',
-            $this->basePath . 'view/main/def/Layout',
+            $this->basePath . 'view/main/def/index',
+            $this->basePath . 'view/main/def/layout',
         );
 
         foreach($folderLists as $folder) :
@@ -148,7 +148,7 @@ class Test
 
 ',
 
-        $this->basePath . 'view/main/def/Index/index.html' => '<import from="/Layout/global" name="html5">
+        $this->basePath . 'view/main/def/index/index.html' => '<import from="/layout/global" name="html5">
     <extend name="title">
           {{welcomeTitle}},  this is html title
     </extend>
@@ -159,7 +159,7 @@ class Test
     </extend>
 </import>
 ',
-$this->basePath . 'view/main/def/Layout/global.html' => '<export name="html5">
+$this->basePath . 'view/main/def/layout/global.html' => '<export name="html5">
 <html>
     <head>
         <title>
