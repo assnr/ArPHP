@@ -94,7 +94,7 @@ class Ar
             if (AR_PUBLIC_CONFIG_FILE && is_file(AR_PUBLIC_CONFIG_FILE)) :
                 $otherConfig = include_once AR_PUBLIC_CONFIG_FILE;
                 if (is_array($otherConfig)) :
-                    Ar::setConfig('', \ar\core\comp('format.format')->arrayMergeRecursiveDistinct($otherConfig, Ar::getConfig()));
+                    Ar::setConfig('', \ar\core\comp('format.format')->arrayMergeRecursiveDistinct(Ar::getConfig(), $otherConfig));
                 endif;
             endif;
 
@@ -304,50 +304,6 @@ class Ar
             // $class = substr($class, $posNameSpace + 1);
             return self::loadByNameSpace($class);
         endif;
-
-        if (AR_OUTER_START) :
-            $appModule = AR_MAN_PATH;
-        else :
-            $appModule = AR_ROOT_PATH . \ar\core\cfg('requestRoute.a_m', AR_DEFAULT_APP_NAME) . DS;
-        endif;
-
-        // array_push(self::$autoLoadPath, $appModule);
-        array_unshift(self::$autoLoadPath, $appModule);
-
-        if (preg_match("#[A-Z]{1}[a-z0-9]+$#", $class, $match)) :
-            $appEnginePath = $appModule . $match[0] . DS;
-            $extPath = $appModule . 'Ext' . DS;
-            // cmd mode
-            $binPath = $appModule . 'Bin' . DS;
-            $protocolPath = $appModule . 'Protocol' . DS;
-
-            // 加入Lib公共目录
-            $libPath = AR_ROOT_PATH . 'Lib' . DS . $match[0] . DS;
-            // lib ext
-            $libExtPath = AR_ROOT_PATH . 'Lib' . DS . 'Ext' . DS;
-
-            array_push(self::$autoLoadPath, $appEnginePath, $extPath, $binPath, $protocolPath, $libPath, $libExtPath);
-        endif;
-        self::$autoLoadPath = array_unique(self::$autoLoadPath);
-        foreach (self::$autoLoadPath as $path) :
-            $classFile = $path . $class . '.class.php';
-            if (is_file($classFile)) :
-                include_once $classFile;
-                $rt = true;
-                break;
-            endif;
-        endforeach;
-
-        if (empty($rt)) :
-            // 外部调用时其他框架还有其他处理 此处就忽略
-            if (AR_AS_OUTER_FRAME || AR_OUTER_START) :
-                return false;
-            else :
-                trigger_error('class : ' . $class . ' does not exist !', E_USER_ERROR);
-                exit;
-            endif;
-        endif;
-
     }
 
     // loadByNameSpace
