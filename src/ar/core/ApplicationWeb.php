@@ -151,7 +151,15 @@ class ApplicationWeb extends Application
                     $pass = array();
                     foreach($reflection->getParameters() as $param) :
                         if(isset($this->_c->request[$param->getName()])) :
-                          $pass[] = $this->_c->request[$param->getName()];
+                            $paramValue = $this->_c->request[$param->getName()];
+                            if (!$paramValue) {
+                                try {
+                                    $paramValue = $param->getDefaultValue();
+                                } catch (\ReflectionException $e) {
+                                    throw new \ar\core\Exception('param "' . $param->getName() . '" is empty ', 2011);
+                                }
+                            } 
+                            $pass[] = $paramValue;
                         else :
                             try {
                                 $pass[] = $param->getDefaultValue();

@@ -85,6 +85,12 @@ class Proxy extends Api
             $options[CURLOPT_POSTFIELDS] = $params;
         endif;
 
+        if ($this->curlOptions) :
+            foreach ($this->curlOptions as $ckey => $opt) :
+                $options[$ckey] = $opt;
+            endforeach;
+        endif;
+
         curl_setopt_array($init, $options);
         $rtStr = curl_exec($init);
         $info = curl_getinfo($init);
